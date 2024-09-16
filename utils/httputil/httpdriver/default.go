@@ -5,7 +5,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"time"
 )
 
 // DefaultClient implements Client and wraps around the stdlib Client.
@@ -19,12 +18,9 @@ func WrapClient(client http.Client) Client {
 	return DefaultClient(client)
 }
 
-// NewClient creates a new client around the standard library's http.Client. The
-// client will have a timeout of 10 seconds.
+// NewClient creates a new client around the standard library's http.Client.
 func NewClient() Client {
-	return WrapClient(http.Client{
-		Timeout: 10 * time.Second,
-	})
+	return WrapClient(http.Client{})
 }
 
 func (d DefaultClient) NewRequest(ctx context.Context, method, url string) (Request, error) {
